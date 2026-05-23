@@ -3,12 +3,17 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    products: []
+    products: [],
+    productsInBag: []
   },
   mutations: {
     setProducts(state, products) {
       //update the state with the fetched products
       state.products = products;
+    },
+
+    addToBag(state, product) {
+      state.productsInBag.push(product);
     }
   },
   actions: {
@@ -22,6 +27,11 @@ export default createStore({
         console.error('Error fetching products:', error);
       });
 
+      },
+
+      addToBag({commit}, product) {
+        //check if the product is already in the bag
+        commit('addToBag', product);
       }
   },
   modules: {
