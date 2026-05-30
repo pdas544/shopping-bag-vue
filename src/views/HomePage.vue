@@ -2,12 +2,13 @@
     <div class="home">
       <div class="products">
   
-        <div class="product" v-for="product in products" :key="product.id">
+        <div class="product" v-for="product in products" :key="product.id" :class="{ inBag: itemIsInBag(product) }">
           <div class="product-image" :style="{ backgroundImage: `url(${product.image})` }"></div>
           <h4>{{ product.title }}</h4>
           <p class="price">US$ {{ product.price.toFixed(2) }}</p>
           <button v-if="!itemIsInBag(product)" @click="addToBag(product)">Add to bag</button>
-          <button v-else class="remove">Remove from bag</button>
+          <button v-else class="remove"
+          @click="this.$store.dispatch('removeFromBag',product.id)">Remove from bag</button>
         </div>
       </div>
       {{ productsInBag.length }} item(s) in bag
