@@ -13,6 +13,7 @@
 
     created(){
       this.$store.dispatch('loadProducts');
+      this.$store.dispatch('loadProductsInBag');
       
     },
     computed: mapState(

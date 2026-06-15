@@ -14,11 +14,17 @@ export default createStore({
 
     addToBag(state, product) {
       state.productsInBag.push(product);
+      localStorage.setItem('productsInBag', JSON.stringify(state.productsInBag));
+    },
+
+    setProductsInBag(state, productsInBag) {
+      state.productsInBag = productsInBag;
     },
 
     removeFromBag(state, productId) {
       
       state.productsInBag = state.productsInBag.filter(item => item.id !== productId);
+      localStorage.setItem('productsInBag', JSON.stringify(state.productsInBag));
       
     }
   },
@@ -33,6 +39,15 @@ export default createStore({
         console.error('Error fetching products:', error);
       });
 
+      },
+      
+      //load products in the bag from local storage
+      loadProductsInBag({commit}){
+        //check the local storage for products in the bag
+        if(localStorage.getItem('productsInBag')){
+     
+        commit('setProductsInBag', JSON.parse(localStorage.getItem('productsInBag')));
+        }
       },
 
       addToBag({commit}, product) {
