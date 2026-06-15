@@ -17,7 +17,9 @@ export default createStore({
     },
 
     removeFromBag(state, productId) {
+      
       state.productsInBag = state.productsInBag.filter(item => item.id !== productId);
+      
     }
   },
   actions: {
@@ -40,7 +42,9 @@ export default createStore({
 
       removeFromBag({commit}, productId) {
         //check if the product is already in the bag
+        if(confirm('Are you sure you want to remove this product from the bag?')) {
         commit('removeFromBag', productId);
+        }
       }
   },
   modules: {
